@@ -265,7 +265,7 @@ if sidebar.button("🧹 Xóa cache"):
 
 if st.session_state.clear_cache:
     st.session_state.clear_cache = False
-    st.experimental_rerun()
+    st.rerun()
 
 che_do = sidebar.radio("Chế độ xoay", ["2D", "3D"])
 
