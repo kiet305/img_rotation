@@ -255,10 +255,18 @@ st.title("🎨 Ứng dụng Xoay ảnh")
 
 sidebar = st.sidebar
 sidebar.subheader("🔧 Tùy chọn")
+
+if "clear_cache" not in st.session_state:
+    st.session_state.clear_cache = False
+
 if sidebar.button("🧹 Xóa cache"):
     st.cache_data.clear()
+    st.session_state.clear_cache = True
+
+if st.session_state.clear_cache:
+    st.session_state.clear_cache = False
     st.experimental_rerun()
-sidebar.caption("Sử dụng nút này để dọn cache nếu app chậm hoặc bị lỗi do sử dụng lâu.")
+
 che_do = sidebar.radio("Chế độ xoay", ["2D", "3D"])
 
 if che_do == "2D":
