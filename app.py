@@ -230,15 +230,13 @@ def assign_pixels_parallel(original_pixels, projected_pixels, source_image, outp
     
 @st.cache_data(ttl=300)
 def plot_image(image, rotated_image):
-    img_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    rotated_rgb = cv2.cvtColor(rotated_image, cv2.COLOR_BGR2RGB)
-
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))
-    ax[0].imshow(img_rgb)
+
+    ax[0].imshow(image)  # Không cần đổi màu
     ax[0].set_title("Ảnh gốc")
     ax[0].axis("off")
 
-    ax[1].imshow(rotated_rgb)
+    ax[1].imshow(rotated_image)
     ax[1].set_title("Ảnh đã xử lý")
     ax[1].axis("off")
 
