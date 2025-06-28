@@ -294,6 +294,7 @@ if uploaded:
             out = image_3d.rotate(alpha, theta, gamma)
 
         buf = plot_image(img, out)
+        buf.seek(0)
         st.image(buf, use_container_width=True)
 
         # ======= Tải ảnh đã xử lý =======
