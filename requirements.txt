@@ -4,3 +4,4 @@ numpy
 numba
 Pillow
 plotly
+gdown
