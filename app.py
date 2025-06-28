@@ -232,7 +232,7 @@ def assign_pixels_parallel(original_pixels, projected_pixels, source_image, outp
 def plot_image(image, rotated_image):
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))
 
-    ax[0].imshow(image)  # Không cần đổi màu
+    ax[0].imshow(image) 
     ax[0].set_title("Ảnh gốc")
     ax[0].axis("off")
 
@@ -257,9 +257,10 @@ sidebar.subheader("🔧 Tùy chọn")
 if "clear_cache" not in st.session_state:
     st.session_state.clear_cache = False
 
-if sidebar.button("🧹 Xóa cache", help="Xóa toàn bộ cache để tránh bị crash và tải lại ứng dụng khi bị crash"):
+if sidebar.button("🧹 Xóa cache"):
     st.cache_data.clear()
     st.session_state.clear_cache = True
+sidebar.caption("🛈 Nhấn để xóa cache (bộ nhớ tạm) nếu app bị crash hoặc chậm.")
 
 if st.session_state.clear_cache:
     st.session_state.clear_cache = False
