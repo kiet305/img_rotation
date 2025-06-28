@@ -1,7 +1,8 @@
-numpy
+streamlit>=1.30
 opencv-python-headless
-streamlit
-plotly
+numpy
+numba
 Pillow
+plotly
 matplotlib
 gdown
