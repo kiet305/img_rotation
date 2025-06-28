@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 import gdown
-import numba as nb
 import streamlit as st
 import plotly.graph_objects as go
 from PIL import Image
@@ -205,25 +204,27 @@ class ImageRotation3D:
         output = assign_pixels_parallel(self.pixel_coords, projected_2d, self.image, output)
         return output
 
-def assign_pixels_parallel(original_pixels, projected_pixels, source_image, output_image):
-    """
-    Gán pixel từ ảnh gốc sang ảnh đầu ra sau khi chiếu.
+def assign_pixels_vectorized(original_pixels, projected_pixels, source_image, output_image):
+    h_out, w_out = output_image.shape[:2]
 
-    :param original_pixels: Tọa độ gốc (N x 3).
-    :param projected_pixels: Tọa độ chiếu (N x 2).
-    :param source_image: Ảnh gốc.
-    :param output_image: Ảnh đầu ra.
-    :return: Ảnh sau khi gán.
-    """
-    for i in nb.prange(len(original_pixels)):
-        x0, y0 = int(original_pixels[i, 0]), int(original_pixels[i, 1])
-        x1, y1 = projected_pixels[i, 0], projected_pixels[i, 1]
+    x0 = original_pixels[:, 0]
+    y0 = original_pixels[:, 1]
+    x1 = projected_pixels[:, 0]
+    y1 = projected_pixels[:, 1]
 
-        if source_image.ndim == 3:
-            for c in range(source_image.shape[2]):
-                output_image[x1, y1, c] = source_image[x0, y0, c]
-        else:
-            output_image[x1, y1] = source_image[x0, y0]
+    # Loại bỏ các điểm ra ngoài khung
+    valid = (x1 >= 0) & (x1 < h_out) & (y1 >= 0) & (y1 < w_out)
+
+    x0 = x0[valid]
+    y0 = y0[valid]
+    x1 = x1[valid]
+    y1 = y1[valid]
+
+    if source_image.ndim == 3:
+        output_image[x1, y1] = source_image[x0, y0]
+    else:
+        output_image[x1, y1] = source_image[x0, y0]
+
     return output_image
     
 @st.cache_data(ttl=300)
