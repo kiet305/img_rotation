@@ -1,7 +1,6 @@
 streamlit>=1.30
 opencv-python-headless
 numpy
-numba
 Pillow
 plotly
 matplotlib
