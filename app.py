@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import gdown
+import numba as nb
 import streamlit as st
 import plotly.graph_objects as go
 from PIL import Image
@@ -214,11 +215,14 @@ def assign_pixels_parallel(original_pixels, projected_pixels, source_image, outp
     :param output_image: Ảnh đầu ra.
     :return: Ảnh sau khi gán.
     """
-    for i in range(len(original_pixels)):
-        x0, y0 = original_pixels[i, 0], original_pixels[i, 1]
+    for i in nb.prange(len(original_pixels)):
+        x0, y0 = int(original_pixels[i, 0]), int(original_pixels[i, 1])
         x1, y1 = projected_pixels[i, 0], projected_pixels[i, 1]
 
-        if 0 <= x1 < output_image.shape[0] and 0 <= y1 < output_image.shape[1]:
+        if source_image.ndim == 3:
+            for c in range(source_image.shape[2]):
+                output_image[x1, y1, c] = source_image[x0, y0, c]
+        else:
             output_image[x1, y1] = source_image[x0, y0]
     return output_image
     
