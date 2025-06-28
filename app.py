@@ -227,7 +227,8 @@ def assign_pixels_parallel(original_pixels, projected_pixels, source_image, outp
         else:
             output_image[x1, y1] = source_image[x0, y0]
     return output_image
-
+    
+@st.cache_data(ttl=300)
 def plot_image(image, rotated_image):
     img_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     rotated_rgb = cv2.cvtColor(rotated_image, cv2.COLOR_BGR2RGB)
@@ -254,6 +255,10 @@ st.title("🎨 Ứng dụng Xoay ảnh")
 
 sidebar = st.sidebar
 sidebar.subheader("🔧 Tùy chọn")
+if sidebar.button("🧹 Xóa cache"):
+    st.cache_data.clear()
+    st.experimental_rerun()
+sidebar.caption("Sử dụng nút này để dọn cache nếu app chậm hoặc bị lỗi do sử dụng lâu.")
 che_do = sidebar.radio("Chế độ xoay", ["2D", "3D"])
 
 if che_do == "2D":
