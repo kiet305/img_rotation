@@ -201,7 +201,7 @@ class ImageRotation3D:
         output = np.full((h_out, w_out, self.channels), 255, dtype=self.image.dtype)
 
         # Gán giá trị pixel
-        output = assign_pixels_parallel(self.pixel_coords, projected_2d, self.image, output)
+        output = assign_pixels_numpy(self.pixel_coords, projected_2d, self.image, output)
         return output
 
 def assign_pixels_vectorized(original_pixels, projected_pixels, source_image, output_image):
