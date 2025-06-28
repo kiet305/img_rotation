@@ -259,7 +259,7 @@ sidebar.subheader("🔧 Tùy chọn")
 if "clear_cache" not in st.session_state:
     st.session_state.clear_cache = False
 
-if sidebar.button("🧹 Xóa cache"):
+if sidebar.button("🧹 Xóa cache", help="Xóa toàn bộ cache để tránh bị crash và tải lại ứng dụng khi bị crash"):
     st.cache_data.clear()
     st.session_state.clear_cache = True
 
