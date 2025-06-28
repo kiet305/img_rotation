@@ -1,6 +1,5 @@
 import numpy as np
 import cv2
-import gdown
 import streamlit as st
 import plotly.graph_objects as go
 from PIL import Image
