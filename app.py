@@ -205,8 +205,6 @@ class ImageRotation3D:
         output = assign_pixels_parallel(self.pixel_coords, projected_2d, self.image, output)
         return output
 
-
-@nb.njit(parallel=True)
 def assign_pixels_parallel(original_pixels, projected_pixels, source_image, output_image):
     """
     Gán pixel từ ảnh gốc sang ảnh đầu ra sau khi chiếu.
