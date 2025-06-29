@@ -6,6 +6,7 @@ from PIL import Image
 from io import BytesIO
 import matplotlib.pyplot as plt
 
+# Cách deploy app: đưa file lên 1 repository Github rồi deploy thông qua Streamlit Cloud bằng tài khoản Github đó
 # --------------------- Core Logic ---------------------
 class ImageRotation2D:
     def __init__(self, image: np.ndarray):
